@@ -257,7 +257,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
 
     private int banFromGroup;
     private boolean openAnimationInProgress;
-    private boolean transitionAnimationInProress;
+    private boolean transitionAnimationInProgress;
     private boolean recreateMenuAfterAnimation;
     private int playProfileAnimation;
     private boolean allowProfileAnimation = true;
@@ -282,7 +282,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     private float expandProgress;
     private float listViewVelocityY;
     private ValueAnimator expandAnimator;
-    private float currentExpanAnimatorFracture;
+    private float currentExpandAnimatorFracture;
     private float[] expandAnimatorValues = new float[]{0f, 1f};
     private boolean isInLandscapeMode;
     private boolean allowPullingDown;
@@ -2019,7 +2019,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                             otherItem.hideSubItem(edit_name);
                         }
                     }
-                    currentExpanAnimatorFracture = 1.0f;
+                    currentExpandAnimatorFracture = 1.0f;
 
                     int paddingTop;
                     int paddingBottom;
@@ -2139,10 +2139,10 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 whitePaint.setColor(Theme.getColor(Theme.key_windowBackgroundWhite));
                 if (listView.getVisibility() == VISIBLE) {
                     grayPaint.setColor(Theme.getColor(Theme.key_windowBackgroundGray));
-                    if (transitionAnimationInProress) {
+                    if (transitionAnimationInProgress) {
                         whitePaint.setAlpha((int) (255 * listView.getAlpha()));
                     }
-                    if (transitionAnimationInProress) {
+                    if (transitionAnimationInProgress) {
                         grayPaint.setAlpha((int) (255 * listView.getAlpha()));
                     }
 
@@ -3073,7 +3073,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         expandAnimator = ValueAnimator.ofFloat(0f, 1f);
         expandAnimator.addUpdateListener(anim -> {
             final int newTop = ActionBar.getCurrentActionBarHeight() + (actionBar.getOccupyStatusBar() ? AndroidUtilities.statusBarHeight : 0);
-            final float value = AndroidUtilities.lerp(expandAnimatorValues, currentExpanAnimatorFracture = anim.getAnimatedFraction());
+            final float value = AndroidUtilities.lerp(expandAnimatorValues, currentExpandAnimatorFracture = anim.getAnimatedFraction());
 
             avatarContainer.setScaleX(avatarScale);
             avatarContainer.setScaleY(avatarScale);
@@ -4030,7 +4030,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         overlaysView.setOverlaysVisible(true, durationFactor);
                         avatarsViewPagerIndicatorView.refreshVisibility(durationFactor);
                         expandAnimator.cancel();
-                        float value = AndroidUtilities.lerp(expandAnimatorValues, currentExpanAnimatorFracture);
+                        float value = AndroidUtilities.lerp(expandAnimatorValues, currentExpandAnimatorFracture);
                         expandAnimatorValues[0] = value;
                         expandAnimatorValues[1] = 1f;
                         expandAnimator.setDuration((long) ((1f - value) * 250f / durationFactor));
@@ -4091,7 +4091,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         avatarImage.getImageReceiver().setAllowStartAnimation(true);
                         avatarImage.getImageReceiver().startAnimation();
 
-                        float value = AndroidUtilities.lerp(expandAnimatorValues, currentExpanAnimatorFracture);
+                        float value = AndroidUtilities.lerp(expandAnimatorValues, currentExpandAnimatorFracture);
                         expandAnimatorValues[0] = value;
                         expandAnimatorValues[1] = 0f;
                         if (!isInLandscapeMode) {
@@ -4616,7 +4616,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 transitionIndex = getNotificationCenter().setAnimationInProgress(transitionIndex, new int[]{NotificationCenter.dialogsNeedReload, NotificationCenter.closeChats, NotificationCenter.mediaCountDidLoad, NotificationCenter.mediaCountsDidLoad});
             }
         }
-        transitionAnimationInProress = true;
+        transitionAnimationInProgress = true;
     }
 
     @Override
@@ -4637,7 +4637,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             }
             getNotificationCenter().onAnimationFinish(transitionIndex);
         }
-        transitionAnimationInProress = false;
+        transitionAnimationInProgress = false;
     }
 
     @Keep
